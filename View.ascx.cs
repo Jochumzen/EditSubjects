@@ -19,7 +19,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Utilities;
-using Plugghest.Subjects;
+using Plugghest.Base2;
 using System.Web.Script.Serialization;
 using System.Linq;
 using System.Collections.Generic;
@@ -44,6 +44,14 @@ namespace Christoc.Modules.EditSubjects
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if((Page as DotNetNuke.Framework.PageBase).PageCulture.Name != "en-US")
+            {
+                lblNotEnglish.Text = "Subjects can only be edited in English. Please switch language to English to edit subjects.";
+                lblNotEnglish.Visible = true;
+                //Todo: Hide other controls
+                return;
+            }
+
             try
             {
                 if (!IsPostBack)
@@ -59,9 +67,8 @@ namespace Christoc.Modules.EditSubjects
 
         public void BindTree()
         {
-            SubjectHandler sh = new SubjectHandler();
-
-            var tree = sh.GetSubjectsAsTree();
+            BaseHandler sh = new BaseHandler();
+            var tree = sh.GetSubjectsAsTree("en-US");
             JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
             hdnTreeData.Value = TheSerializer.Serialize(tree);
         }
@@ -72,7 +79,7 @@ namespace Christoc.Modules.EditSubjects
             string json = hdnGetJosnResult.Value;
             var flatSubjects = js.Deserialize<Subject[]>(json).ToList();
 
-            SubjectHandler sh = new SubjectHandler();
+            BaseHandler sh = new BaseHandler();
 
             //Todo: Finish Save
         }
@@ -81,7 +88,7 @@ namespace Christoc.Modules.EditSubjects
         {
             //if (hdnNodeSubjectId.Value != "")
             //{
-            //    SubjectHandler h = new SubjectHandler();
+            //    BaseHandler sh = new BaseHandler();
 
             //    Subject SelectedSubject = h.GetSubject(Convert.ToInt32(hdnNodeSubjectId.Value));
 
@@ -117,6 +124,16 @@ namespace Christoc.Modules.EditSubjects
                     };
                 return actions;
             }
+        }
+
+        protected void btn_Save_Click(object sender, EventArgs e)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            string json = hdnGetJosnResult.Value;
+            List<Subject> subjects = js.Deserialize<Subject[]>(json).ToList();
+            BaseHandler bh = new BaseHandler();
+            bh.UpdateSubjectTree(subjects);
+            BindTree();
         }
     }
 }

@@ -1,16 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.EditSubjects.View" %>
 
-<script src="/DesktopModules/Plugghest_Subjects/js/tree.jquery.js"></script>
-<link href="/DesktopModules/Plugghest_Subjects/js/jqtree.css" rel="stylesheet" />
-<link href="/DesktopModules/Plugghest_Subjects/module.css" rel="stylesheet" />
+<script src="/DesktopModules/EditSubjects/js/tree.jquery.js"></script>
+<link href="/DesktopModules/EditSubjects/js/jqtree.css" rel="stylesheet" />
+<link href="/DesktopModules/EditSubjects/module.css" rel="stylesheet" />
 
-
+<asp:Label runat="server" Visible="False" ID="lblNotEnglish"></asp:Label>
 <div style="background-color: #D8CACC; padding: 20px;">
     <div id="tree2"></div>
     </div>
 <br />
-<asp:Button ID="btnSaveSubjects" Text="Save Subjects" runat="server" OnClick="btnSaveSubjects_Click" OnClientClick="return getjson()" />
-
+<asp:Button ID="btn_Save" runat="server" Text="Save Subject" OnClick="btn_Save_Click" OnClientClick="return getjson()" />
 <br /><br />
 <h2>Add New Subject</h2>
 
@@ -44,15 +43,10 @@
     function getjson() {
 
         var record = $('#tree2').tree('toJson');
-        alert(record);
-
-
-        return false;
 
         $("#<%=hdnGetJosnResult.ClientID%>").val(record);
 
-        alert($("#<%=hdnGetJosnResult.ClientID%>").val());
-        return false;
+        return true;
     }
 
     function getsubjectid() {
