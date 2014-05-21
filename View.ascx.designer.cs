@@ -22,13 +22,31 @@ namespace Christoc.Modules.EditSubjects {
         protected global::System.Web.UI.WebControls.Label lblNotEnglish;
         
         /// <summary>
-        /// btn_Save control.
+        /// btnRecorder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Save;
+        protected global::System.Web.UI.WebControls.Button btnRecorder;
+        
+        /// <summary>
+        /// btnRemoveSub control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRemoveSub;
+        
+        /// <summary>
+        /// pnlAddSub control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAddSub;
         
         /// <summary>
         /// txtAddSubject control.
@@ -47,6 +65,15 @@ namespace Christoc.Modules.EditSubjects {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnTreeData;
+        
+        /// <summary>
+        /// btn_Save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Save;
         
         /// <summary>
         /// hdnGetJosnResult control.

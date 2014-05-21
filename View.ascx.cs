@@ -24,6 +24,8 @@ using System.Web.Script.Serialization;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using Plugghest.Subjects;
+
 
 namespace Christoc.Modules.EditSubjects
 {
@@ -56,6 +58,7 @@ namespace Christoc.Modules.EditSubjects
             {
                 if (!IsPostBack)
                 {
+                  //  btnAddnewsub.Visible = false;
                     BindTree();
                 }
             }
@@ -67,19 +70,27 @@ namespace Christoc.Modules.EditSubjects
 
         public void BindTree()
         {
-            BaseHandler sh = new BaseHandler();
-            var tree = sh.GetSubjectsAsTree("en-US");
+          
+            //BaseHandler sh = new BaseHandler();
+            //var tree = sh.GetSubjectsAsTree("en-US");
+            //JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
+            //hdnTreeData.Value = TheSerializer.Serialize(tree);
+
+            SubjectHandler objsubhandler = new SubjectHandler();
+
+            var tree = objsubhandler.GetSubjectsAsTree();
             JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
             hdnTreeData.Value = TheSerializer.Serialize(tree);
+
         }
 
         protected void btnSaveSubjects_Click(object sender, EventArgs e)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            string json = hdnGetJosnResult.Value;
-            var flatSubjects = js.Deserialize<Subject[]>(json).ToList();
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+            //string json = hdnGetJosnResult.Value;
+            //var flatSubjects = js.Deserialize<Subject[]>(json).ToList();
 
-            BaseHandler sh = new BaseHandler();
+            //BaseHandler sh = new BaseHandler();
 
             //Todo: Finish Save
         }
@@ -130,10 +141,30 @@ namespace Christoc.Modules.EditSubjects
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
             string json = hdnGetJosnResult.Value;
-            List<Subject> subjects = js.Deserialize<Subject[]>(json).ToList();
-            BaseHandler bh = new BaseHandler();
-            bh.UpdateSubjectTree(subjects);
+            var flatSubjects = js.Deserialize<Plugghest.Subjects.Subject[]>(json).ToList();
+            var flatSubjects1 = js.Deserialize<Plugghest.Base2.Subject[]>(json).ToList();
+
+            BaseHandler sh = new BaseHandler();
+            sh.UpdateSubjectTree(flatSubjects1);
             BindTree();
+
+
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+            //string json = hdnGetJosnResult.Value;
+            //List<Plugghest.Base2.Subject> subjects = js.Deserialize<Plugghest.Base2.Subject[]>(json).ToList();
+            //BaseHandler bh = new BaseHandler();
+            //bh.UpdateSubjectTree(subjects);
+            //BindTree();
+        }
+
+        protected void btnRecorder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            pnlAddSub.Visible = true;
         }
     }
 }
