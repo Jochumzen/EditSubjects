@@ -1,5 +1,5 @@
 ﻿/*
-' Copyright (c) 2014  Christoc.com
+' Copyright (c) 2014  Plugghest.com
 '  All rights reserved.
 ' 
 ' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -14,7 +14,7 @@ using System;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 
-namespace Christoc.Modules.EditSubjects
+namespace Plugghest.Modules.EditSubjects
 {
     /// -----------------------------------------------------------------------------
     /// <summary>

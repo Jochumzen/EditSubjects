@@ -5,10 +5,10 @@
       <description>PluggestEditSubjects module</description>
       <iconFile>Images/icon_extensions.gif</iconFile>
       <owner>
-        <name>Christoc.com</name>
-        <organization>Christoc.com</organization>
-        <url>http://www.christoc.com</url>
-        <email>modules@christoc.com</email>
+        <name>Plugghest.com</name>
+        <organization>Plugghest.com</organization>
+        <url>http://www.Plugghest.com</url>
+        <email>modules@Plugghest.com</email>
       </owner>
       <license src="License.txt"></license>
       <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
@@ -46,7 +46,7 @@
           <desktopModule>
             <moduleName>EditSubjects</moduleName>
             <foldername>EditSubjects</foldername>
-            <businessControllerClass>Christoc.Modules.EditSubjects.Components.FeatureController</businessControllerClass>
+            <businessControllerClass>Plugghest.Modules.EditSubjects.Components.FeatureController</businessControllerClass>
             <supportedFeatures />
             <moduleDefinitions>
               <moduleDefinition>

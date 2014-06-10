@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Christoc.Modules.EditSubjects {
+namespace Plugghest.Modules.EditSubjects {
     
     
     public partial class Edit {

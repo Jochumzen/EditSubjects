@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.EditSubjects.View" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Plugghest.Modules.EditSubjects.View" %>
 
 <script src="/DesktopModules/EditSubjects/js/tree.jquery.js"></script>
 <link href="/DesktopModules/EditSubjects/js/jqtree.css" rel="stylesheet" />
@@ -25,7 +25,7 @@
 <asp:Button ID="btnTranslation" resourcekey="Translate.Text" runat="server" Visible="False" OnClick="btnTranslation_Click" />
 <br />
 <asp:HyperLink ID="hlToEnglish" Text="Switch to English to edit subjects" Visible="False" runat ="server" Font-Size="Small" />
-
+<asp:Label ID="lblCannotDelete" Text = "Cannot delete the selected subject as it has children. Delete the children first." Visible ="false" runat = "server" />
 <br />
 
 <asp:Panel ID="pnlAddSubject" runat="server" Visible="False">
