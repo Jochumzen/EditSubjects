@@ -1,5 +1,5 @@
 ﻿/*
-' Copyright (c) 2014  Christoc.com
+' Copyright (c) 2014  Plugghest.com
 '  All rights reserved.
 ' 
 ' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -12,7 +12,7 @@
 
 using System;
 using System.Web.UI.WebControls;
-using Christoc.Modules.EditSubjects.Components;
+using Plugghest.Modules.EditSubjects.Components;
 using DotNetNuke.Security;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Entities.Modules;
@@ -24,10 +24,9 @@ using System.Web.Script.Serialization;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-using Plugghest.Subjects;
 
 
-namespace Christoc.Modules.EditSubjects
+namespace Plugghest.Modules.EditSubjects
 {
     /// -----------------------------------------------------------------------------
     /// <summary>
@@ -44,82 +43,163 @@ namespace Christoc.Modules.EditSubjects
     /// -----------------------------------------------------------------------------
     public partial class View : EditSubjectsModuleBase, IActionable
     {
+        public string Language;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if((Page as DotNetNuke.Framework.PageBase).PageCulture.Name != "en-US")
+            string editStr = Page.Request.QueryString["edit"];
+            Language = (Page as DotNetNuke.Framework.PageBase).PageCulture.Name;
+            if (Language == "en-US")
             {
-                lblNotEnglish.Text = "Subjects can only be edited in English. Please switch language to English to edit subjects.";
-                lblNotEnglish.Visible = true;
-                //Todo: Hide other controls
-                return;
-            }
-
-            try
-            {
-                if (!IsPostBack)
+                if (editStr == "reorder")
                 {
-                  //  btnAddnewsub.Visible = false;
-                    BindTree();
+                    btnReorder.Visible = false;
+                    btnAddNewSubject.Visible = false;
+                    btnRemoveSubject.Visible = false;
+                    btnSaveReordering.Visible = true;
+                    btnCancelReordering.Visible = true;
+                    hdnSelectable.Value = "true";
+                    hdnDragAndDrop.Value = "true";
+                }
+                if (editStr == "add")
+                {
+                    btnReorder.Visible = false;
+                    btnAddNewSubject.Visible = false;
+                    btnRemoveSubject.Visible = false;
+                    hdnSelectable.Value = "true";
+                    pnlAddSubject.Visible = true;
+                }
+                if (editStr == "remove")
+                {
+                    btnReorder.Visible = false;
+                    btnAddNewSubject.Visible = false;
+                    btnRemoveSubject.Visible = false;
+                    hdnSelectable.Value = "true";
+                    btnRemoveSelectedSubject.Visible = true;
+                    btnCancelRemove.Visible = true;
                 }
             }
-            catch (Exception exc) //Module failed to load
+            else
             {
-                Exceptions.ProcessModuleLoadException(this, exc);
+                if (editStr == "translate")
+                {
+                    btnReorder.Visible = false;
+                    btnAddNewSubject.Visible = false;
+                    btnRemoveSubject.Visible = false;
+                    hdnSelectable.Value = "true";
+                    pnlTranslateSubject.Visible = true;
+                }
+                else
+                {
+                    btnReorder.Visible = false;
+                    btnAddNewSubject.Visible = false;
+                    btnRemoveSubject.Visible = false;
+                    btnTranslation.Visible = true;
+                    hlToEnglish.NavigateUrl = DotNetNuke.Common.Globals.NavigateURL(TabId, "", "language=en-us");
+                    hlToEnglish.Visible = true;
+                }
+            }     
+           
+            if (!IsPostBack)
+            {
+                BindTree();
             }
         }
 
         public void BindTree()
-        {
-          
-            //BaseHandler sh = new BaseHandler();
-            //var tree = sh.GetSubjectsAsTree("en-US");
-            //JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
-            //hdnTreeData.Value = TheSerializer.Serialize(tree);
-
-            SubjectHandler objsubhandler = new SubjectHandler();
-
-            var tree = objsubhandler.GetSubjectsAsTree();
+        {          
+            BaseHandler objsubhandler = new BaseHandler();
+            var tree = objsubhandler.GetSubjectsAsTree(Language);
             JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
             hdnTreeData.Value = TheSerializer.Serialize(tree);
-
         }
 
-        protected void btnSaveSubjects_Click(object sender, EventArgs e)
+        protected void btnReorder_Click(object sender, EventArgs e)
         {
-            //JavaScriptSerializer js = new JavaScriptSerializer();
-            //string json = hdnGetJosnResult.Value;
-            //var flatSubjects = js.Deserialize<Subject[]>(json).ToList();
-
-            //BaseHandler sh = new BaseHandler();
-
-            //Todo: Finish Save
+            Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(TabId, "", "edit=reorder"));
         }
 
-        protected void btnAddSubject_Click(object sender, EventArgs e)
+        protected void btnAddNewSubject_Click(object sender, EventArgs e)
         {
-            //if (hdnNodeSubjectId.Value != "")
-            //{
-            //    BaseHandler sh = new BaseHandler();
+            Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(TabId, "", "edit=add"));
+        }
 
-            //    Subject SelectedSubject = h.GetSubject(Convert.ToInt32(hdnNodeSubjectId.Value));
+        protected void btnRemoveSubject_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(TabId, "", "edit=remove"));
+        }
 
-            //    //Get All subjects with same mother as selected but with higher Order
-            //    var updateSubjects = h.GetSubjectsFromMotherWhereOrderGreaterThan(SelectedSubject.Mother, SelectedSubject.SubjectOrder);
-            //    //Increase Order by one to make room for new subject
-            //    foreach (Subject s in updateSubjects)
-            //    {
-            //        s.SubjectOrder += 1;
-            //        h.UpdateSubject(s);
-            //    }
+        protected void btnSaveReordering_Click(object sender, EventArgs e)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            string json = hdnGetJosnResult.Value;
+            var flatSubjects1 = js.Deserialize<Plugghest.Base2.Subject[]>(json).ToList();
 
-            //    Subject newSubject = new Subject();
-            //    newSubject.label = txtAddSubject.Text;
-            //    newSubject.SubjectOrder = SelectedSubject.SubjectOrder + 1;
-            //    newSubject.Mother = SelectedSubject.Mother;
-            //    h.CreateSubject(newSubject);
+            BaseHandler sh = new BaseHandler();
+            sh.UpdateSubjectTree(flatSubjects1);
+            BindTree();
+        }
 
-            //    BindTree();
-            //}
+        protected void btnCancelReordering_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(TabId, "", ""));
+        }
+
+        protected void btnRemoveSelectedSubject_Click(object sender, EventArgs e)
+        {
+            BaseHandler bh = new BaseHandler();
+            var tree = bh.GetSubjectsAsTree(Language);
+            Subject s = bh.FindSubject(tree, Convert.ToInt32(hdnNodeSubjectId.Value));
+            if (s.children.Count == 0)
+            {
+                bh.DeleteSubject(Convert.ToInt32(hdnNodeSubjectId.Value));
+                lblCannotDelete.Visible = false;
+            }
+            else
+                lblCannotDelete.Visible = true;
+            BindTree();
+        }
+
+        protected void btnCancelRemove_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(TabId, "", ""));
+        }
+
+        protected void btnAddAfter_Click(object sender, EventArgs e)
+        {
+            BaseHandler bh = new BaseHandler();
+            SubjectEntity SelectedSubject = bh.GetSubjectEntity(Convert.ToInt32(hdnNodeSubjectId.Value));
+            CreateSubject(SelectedSubject.SubjectOrder + 1, SelectedSubject.MotherId);
+        }
+
+        protected void btnAddBefore_Click(object sender, EventArgs e)
+        {
+            BaseHandler bh = new BaseHandler();
+            SubjectEntity SelectedSubject = bh.GetSubjectEntity(Convert.ToInt32(hdnNodeSubjectId.Value));
+            CreateSubject(SelectedSubject.SubjectOrder, SelectedSubject.MotherId);
+        }
+
+        protected void btnAddChild_Click(object sender, EventArgs e)
+        {
+            BaseHandler bh = new BaseHandler();
+            SubjectEntity SelectedSubject = bh.GetSubjectEntity(Convert.ToInt32(hdnNodeSubjectId.Value));
+            CreateSubject(1, SelectedSubject.SubjectId);
+        }
+
+        private void CreateSubject(int order, int motherId)
+        {
+            BaseHandler bh = new BaseHandler();
+            Subject newSubject = new Subject();
+            newSubject.label = txtAddSubject.Text;
+            newSubject.SubjectOrder = order;
+            newSubject.MotherId = motherId;
+            bh.CreateSubject(newSubject, this.UserId);
+            txtAddSubject.Text = "";
+            BindTree();
+        }
+
+        protected void btnCancelAdd_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(TabId, "", ""));
         }
 
         public ModuleActionCollection ModuleActions
@@ -137,34 +217,26 @@ namespace Christoc.Modules.EditSubjects
             }
         }
 
-        protected void btn_Save_Click(object sender, EventArgs e)
+        protected void btnTranslation_Click(object sender, EventArgs e)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            string json = hdnGetJosnResult.Value;
-            var flatSubjects = js.Deserialize<Plugghest.Subjects.Subject[]>(json).ToList();
-            var flatSubjects1 = js.Deserialize<Plugghest.Base2.Subject[]>(json).ToList();
+            Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(TabId, "", "edit=translate"));
+        }
 
-            BaseHandler sh = new BaseHandler();
-            sh.UpdateSubjectTree(flatSubjects1);
+        protected void btnExitTranslationMode_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(TabId, "", ""));
+        }
+
+        protected void btnSaveTranslation_Click(object sender, EventArgs e)
+        {
+            BaseHandler bh = new BaseHandler();
+            PHText t = bh.GetCurrentVersionText(Language, Convert.ToInt32(hdnNodeSubjectId.Value), ETextItemType.Subject);
+            t.Text = tbNewTranslation.Text;
+            t.CultureCodeStatus = ECultureCodeStatus.HumanTranslated;
+            bh.SavePhText(t);
+            tbNewTranslation.Text = "";
             BindTree();
-
-
-            //JavaScriptSerializer js = new JavaScriptSerializer();
-            //string json = hdnGetJosnResult.Value;
-            //List<Plugghest.Base2.Subject> subjects = js.Deserialize<Plugghest.Base2.Subject[]>(json).ToList();
-            //BaseHandler bh = new BaseHandler();
-            //bh.UpdateSubjectTree(subjects);
-            //BindTree();
         }
 
-        protected void btnRecorder_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            pnlAddSub.Visible = true;
-        }
     }
 }
