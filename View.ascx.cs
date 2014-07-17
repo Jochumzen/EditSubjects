@@ -46,58 +46,68 @@ namespace Plugghest.Modules.EditSubjects
         public string Language;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string editStr = Page.Request.QueryString["edit"];
-            Language = (Page as DotNetNuke.Framework.PageBase).PageCulture.Name;
-            if (Language == "en-US")
+            if (!UserInfo.IsInRole("Administator"))
             {
-                if (editStr == "reorder")
-                {
-                    btnReorder.Visible = false;
-                    btnAddNewSubject.Visible = false;
-                    btnRemoveSubject.Visible = false;
-                    btnSaveReordering.Visible = true;
-                    btnCancelReordering.Visible = true;
-                    hdnSelectable.Value = "true";
-                    hdnDragAndDrop.Value = "true";
-                }
-                if (editStr == "add")
-                {
-                    btnReorder.Visible = false;
-                    btnAddNewSubject.Visible = false;
-                    btnRemoveSubject.Visible = false;
-                    hdnSelectable.Value = "true";
-                    pnlAddSubject.Visible = true;
-                }
-                if (editStr == "remove")
-                {
-                    btnReorder.Visible = false;
-                    btnAddNewSubject.Visible = false;
-                    btnRemoveSubject.Visible = false;
-                    hdnSelectable.Value = "true";
-                    btnRemoveSelectedSubject.Visible = true;
-                    btnCancelRemove.Visible = true;
-                }
+                btnReorder.Visible = false;
+                btnAddNewSubject.Visible = false;
+                btnRemoveSubject.Visible = false;
             }
-            else
+            Language = (Page as DotNetNuke.Framework.PageBase).PageCulture.Name;
+           
+            string editStr = Page.Request.QueryString["edit"];
+            if (UserInfo.IsInRole("Administator"))
             {
-                if (editStr == "translate")
+                if (Language == "en-US")
                 {
-                    btnReorder.Visible = false;
-                    btnAddNewSubject.Visible = false;
-                    btnRemoveSubject.Visible = false;
-                    hdnSelectable.Value = "true";
-                    pnlTranslateSubject.Visible = true;
+                    if (editStr == "reorder")
+                    {
+                        btnReorder.Visible = false;
+                        btnAddNewSubject.Visible = false;
+                        btnRemoveSubject.Visible = false;
+                        btnSaveReordering.Visible = true;
+                        btnCancelReordering.Visible = true;
+                        hdnSelectable.Value = "true";
+                        hdnDragAndDrop.Value = "true";
+                    }
+                    if (editStr == "add")
+                    {
+                        btnReorder.Visible = false;
+                        btnAddNewSubject.Visible = false;
+                        btnRemoveSubject.Visible = false;
+                        hdnSelectable.Value = "true";
+                        pnlAddSubject.Visible = true;
+                    }
+                    if (editStr == "remove")
+                    {
+                        btnReorder.Visible = false;
+                        btnAddNewSubject.Visible = false;
+                        btnRemoveSubject.Visible = false;
+                        hdnSelectable.Value = "true";
+                        btnRemoveSelectedSubject.Visible = true;
+                        btnCancelRemove.Visible = true;
+                    }
                 }
                 else
                 {
-                    btnReorder.Visible = false;
-                    btnAddNewSubject.Visible = false;
-                    btnRemoveSubject.Visible = false;
-                    btnTranslation.Visible = true;
-                    hlToEnglish.NavigateUrl = DotNetNuke.Common.Globals.NavigateURL(TabId, "", "language=en-us");
-                    hlToEnglish.Visible = true;
-                }
-            }     
+                    if (editStr == "translate")
+                    {
+                        btnReorder.Visible = false;
+                        btnAddNewSubject.Visible = false;
+                        btnRemoveSubject.Visible = false;
+                        hdnSelectable.Value = "true";
+                        pnlTranslateSubject.Visible = true;
+                    }
+                    else
+                    {
+                        btnReorder.Visible = false;
+                        btnAddNewSubject.Visible = false;
+                        btnRemoveSubject.Visible = false;
+                        btnTranslation.Visible = true;
+                        hlToEnglish.NavigateUrl = DotNetNuke.Common.Globals.NavigateURL(TabId, "", "language=en-us");
+                        hlToEnglish.Visible = true;
+                    }
+                }  
+            } 
            
             if (!IsPostBack)
             {
@@ -147,8 +157,7 @@ namespace Plugghest.Modules.EditSubjects
         protected void btnRemoveSelectedSubject_Click(object sender, EventArgs e)
         {
             BaseHandler bh = new BaseHandler();
-            var tree = bh.GetSubjectsAsTree(Language);
-            Subject s = bh.FindSubject(tree, Convert.ToInt32(hdnNodeSubjectId.Value));
+            Subject s = bh.FindSubject(Language, Convert.ToInt32(hdnNodeSubjectId.Value));
             if (s.children.Count == 0)
             {
                 bh.DeleteSubject(Convert.ToInt32(hdnNodeSubjectId.Value));

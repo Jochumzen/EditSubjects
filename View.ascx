@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Plugghest.Modules.EditSubjects.View" %>
 
-<script src="/DesktopModules/EditSubjects/js/tree.jquery.js"></script>
-<link href="/DesktopModules/EditSubjects/js/jqtree.css" rel="stylesheet" />
-<link href="/DesktopModules/EditSubjects/module.css" rel="stylesheet" />
+<script src="/js/jqTree/tree.jquery.js"></script>
+<link href="/js/jqTree/jqtree.css" rel="stylesheet" />
 
 <asp:HiddenField ID="hdnTreeData" runat="server" Value="" />
 <asp:HiddenField ID="hdnDragAndDrop" runat="server" Value="false" />
@@ -43,16 +42,16 @@
 </asp:Panel>
 
 <asp:Panel ID="pnlTranslateSubject" runat ="server" Visible ="false" >
-    <asp:Label ID="SelectSubject" resourcekey="Select.Text" runat="server" /><br />
-    <asp:Label ID="InEnglish" resourcekey="InEnglish.Text" runat="server" />
+    <asp:Label ID="SelectSubject" resourcekey="Select" runat="server" /><br />
+    <asp:Label ID="InEnglish" resourcekey="InEnglish" runat="server" />
     <asp:Label ID="English" Text="" runat="server" /><br />
-    <asp:Label ID="Status" resourcekey="Status.Text" runat="server" />
+    <asp:Label ID="Status" resourcekey="Status" runat="server" />
     <asp:Label ID="TranslationStatus" Text="" runat="server" /><br />
-    <asp:Label ID="NewTranslation" resourcekey="NewTranslation.Text"  runat="server" />
+    <asp:Label ID="NewTranslation" resourcekey="NewTranslation"  runat="server" />
     &nbsp;
     <asp:TextBox ID="tbNewTranslation" runat ="server" Width="446px"  /><br />
-    <asp:Button ID="btnSaveTranslation" resourcekey="SaveTranslation.Text" runat="server" OnClientClick="return getsubjectidTransl();" OnClick="btnSaveTranslation_Click" />
-    <asp:Button ID="btnExitTranslationMode" resourcekey="ExitTranslation.Text" runat="server" OnClick="btnExitTranslationMode_Click" />
+    <asp:Button ID="btnSaveTranslation" resourcekey="SaveTranslation" runat="server" OnClientClick="return getsubjectidTransl();" OnClick="btnSaveTranslation_Click" />
+    <asp:Button ID="btnExitTranslationMode" resourcekey="ExitTranslation" runat="server" OnClick="btnExitTranslationMode_Click" />
 </asp:Panel>
 
 <script type="text/javascript">

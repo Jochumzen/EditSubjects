@@ -3,3 +3,4 @@ C:\websites\dnndev.me\bin\EditSubjects.pdb
 C:\websites\dnndev.me\DesktopModules\EditSubjects\obj\Release\EditSubjects.csprojResolveAssemblyReference.cache
 C:\websites\dnndev.me\DesktopModules\EditSubjects\obj\Release\EditSubjects.dll
 C:\websites\dnndev.me\DesktopModules\EditSubjects\obj\Release\EditSubjects.pdb
+C:\websites\dnndev.me\bin\EditSubjects.dll.config
