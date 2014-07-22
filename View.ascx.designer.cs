@@ -58,6 +58,15 @@ namespace Plugghest.Modules.EditSubjects {
         protected global::System.Web.UI.WebControls.HiddenField hdnNodeSubjectId;
         
         /// <summary>
+        /// hdnIsTranslate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsTranslate;
+        
+        /// <summary>
         /// btnReorder control.
         /// </summary>
         /// <remarks>
@@ -211,58 +220,67 @@ namespace Plugghest.Modules.EditSubjects {
         protected global::System.Web.UI.WebControls.Panel pnlTranslateSubject;
         
         /// <summary>
-        /// SelectSubject control.
+        /// lblSelectSubject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SelectSubject;
+        protected global::System.Web.UI.WebControls.Label lblSelectSubject;
         
         /// <summary>
-        /// InEnglish control.
+        /// lblInEnglish control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label InEnglish;
+        protected global::System.Web.UI.WebControls.Label lblInEnglish;
         
         /// <summary>
-        /// English control.
+        /// lblEnglish control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label English;
+        protected global::System.Web.UI.WebControls.Label lblEnglish;
         
         /// <summary>
-        /// Status control.
+        /// lblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Status;
+        protected global::System.Web.UI.WebControls.Label lblStatus;
         
         /// <summary>
-        /// TranslationStatus control.
+        /// lblStatusHuman control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TranslationStatus;
+        protected global::System.Web.UI.WebControls.Label lblStatusHuman;
         
         /// <summary>
-        /// NewTranslation control.
+        /// lblStatusGoogle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewTranslation;
+        protected global::System.Web.UI.WebControls.Label lblStatusGoogle;
+        
+        /// <summary>
+        /// lblNewTranslation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNewTranslation;
         
         /// <summary>
         /// tbNewTranslation control.

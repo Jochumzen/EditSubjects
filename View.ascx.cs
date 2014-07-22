@@ -118,7 +118,7 @@ namespace Plugghest.Modules.EditSubjects
         public void BindTree()
         {          
             BaseHandler objsubhandler = new BaseHandler();
-            var tree = objsubhandler.GetSubjectsAsTree(Language);
+            var tree = objsubhandler.GetExtendedSubjectsAsTree(Language);
             JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
             hdnTreeData.Value = TheSerializer.Serialize(tree);
         }

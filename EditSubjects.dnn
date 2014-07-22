@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="EditSubjects" type="Module" version="00.00.01">
+    <package name="EditSubjects" type="Module" version="01.01.00">
       <friendlyName>EditSubjects</friendlyName>
       <description>PluggestEditSubjects module</description>
       <iconFile>Images/icon_extensions.gif</iconFile>
@@ -20,16 +20,6 @@
         <component type="Script">
           <scripts>
             <basePath>DesktopModules\EditSubjects</basePath>
-            <script type="Install">
-              <path>Providers\DataProviders\SqlDataProvider</path>
-              <name>00.00.01.SqlDataProvider</name>
-              <version>00.00.01</version>
-            </script>
-            <script type="UnInstall">
-              <path>Providers\DataProviders\SqlDataProvider</path>
-              <name>Uninstall.SqlDataProvider</name>
-              <version>00.00.01</version>
-            </script>
           </scripts>
         </component>
 

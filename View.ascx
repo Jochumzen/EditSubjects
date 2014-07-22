@@ -8,6 +8,8 @@
 <asp:HiddenField ID="hdnSelectable" runat="server" Value="false" />
 <asp:HiddenField ID="hdnGetJosnResult" runat="server" />
 <asp:HiddenField ID="hdnNodeSubjectId" runat="server" />
+<asp:HiddenField ID="hdnIsTranslate" runat="server" Value="true" />
+
 
 <div class="tree">
     <div id="tree2"></div>
@@ -42,12 +44,13 @@
 </asp:Panel>
 
 <asp:Panel ID="pnlTranslateSubject" runat ="server" Visible ="false" >
-    <asp:Label ID="SelectSubject" resourcekey="Select" runat="server" /><br />
-    <asp:Label ID="InEnglish" resourcekey="InEnglish" runat="server" />
-    <asp:Label ID="English" Text="" runat="server" /><br />
-    <asp:Label ID="Status" resourcekey="Status" runat="server" />
-    <asp:Label ID="TranslationStatus" Text="" runat="server" /><br />
-    <asp:Label ID="NewTranslation" resourcekey="NewTranslation"  runat="server" />
+    <asp:Label ID="lblSelectSubject" resourcekey="Select" runat="server" /><br />
+    <asp:Label ID="lblInEnglish" resourcekey="InEnglish" runat="server" />
+    <asp:Label ID="lblEnglish" Text="" runat="server" /><br />
+    <asp:Label ID="lblStatus" resourcekey="Status" runat="server" />
+    <asp:Label ID="lblStatusHuman" resourcekey="StatusHuman" runat="server" />
+    <asp:Label ID="lblStatusGoogle" resourcekey="StatusGoogle" runat="server" /><br />
+    <asp:Label ID="lblNewTranslation" resourcekey="NewTranslation"  runat="server" />
     &nbsp;
     <asp:TextBox ID="tbNewTranslation" runat ="server" Width="446px"  /><br />
     <asp:Button ID="btnSaveTranslation" resourcekey="SaveTranslation" runat="server" OnClientClick="return getsubjectidTransl();" OnClick="btnSaveTranslation_Click" />
@@ -66,6 +69,17 @@
             autoOpen: false
         });
     });
+
+    $('#tree2').bind(
+    'tree.click',
+    function (event) {
+        var node = event.node;
+        $("#<%=lblStatusHuman.ClientID%>").css('display', 'block');
+        if ($("#<%=hdnIsTranslate.ClientID%>").val() == 'true')
+            $("#<%=lblEnglish.ClientID%>").html(node.EnglishTitle);
+    }
+    );
+
 </script>
 
 <script type="text/javascript">
